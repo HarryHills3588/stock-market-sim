@@ -21,7 +21,39 @@ services:
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
       - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
       - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
-  
+
+  # jobmanager:
+  #   image: flink:latest
+  #   ports:
+  #     - "8081:8081"
+  #   command: standalone-job --job-classname com.job.ClassName [--job-id <job id>] [--jars /path/to/artifact1,/path/to/artifact2] [--fromSavepoint /path/to/savepoint] [--allowNonRestoredState] [job arguments]
+  #   networks:
+  #     - data-layer
+  #   volumes:
+  #     - flink_vol:/opt/flink/usrlib
+  #   environment:
+  #     - |
+  #       FLINK_PROPERTIES=
+  #       jobmanager.rpc.address: jobmanager
+  #       parallelism.default: 2 
+
+  # taskmanager:
+  #   image: flink:latest
+  #   networks:
+  #     - data-layer
+  #   depends_on:
+  #     - jobmanager
+  #   command: taskmanager
+  #   scale: 1
+  #   volumes:
+  #     - flink_vol:/opt/flink/usrlib
+  #   environment:
+  #     - |
+  #       FLINK_PROPERTIES=
+  #       jobmanager.rpc.address: jobmanager
+  #       taskmanager.numberOfTaskSlots: 2
+  #       parallelism.default: 2 
+
   database:
     container_name: postgres
     image: postgres
@@ -51,6 +83,9 @@ services:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
 
+  # clickhouse:
+  #   image: clickhouse/clickhouse-server
+
 networks:
   data-layer:
   external:
@@ -59,3 +94,4 @@ networks:
 volumes:
   market_data:
   pgadmin_data:
+  # flink_vol:
