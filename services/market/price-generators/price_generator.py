@@ -20,6 +20,7 @@ class StockGenerator():
         self.logger.info(f"Stock Generator for ticker {self.ticker} initialized correctly")
         self.logger.info(f"Generating stock price data")
 
+    def start(self):
         while True:
             self.generate_new_price()
 
@@ -31,6 +32,3 @@ class StockGenerator():
 
     def generate_new_price(self):
         self.price = self.price + random.gauss(0, self.volatility)
-
-if __name__ == "__main__":
-    sg = StockGenerator(bootstrap_servers='localhost:9092', asset_ticker='AAPL')
