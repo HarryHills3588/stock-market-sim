@@ -9,3 +9,8 @@ class Stock(Base):
     ticker = Column(String(10), primary_key=True)
     name = Column(String(50), nullable=False)
     closing_price = Column(Float, nullable=False)
+
+    def __init__(self, ticker:str, name:str, closing_price:float):
+        self.ticker = ticker
+        self.name = name
+        self.closing_price = closing_price
