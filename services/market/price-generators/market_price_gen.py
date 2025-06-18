@@ -22,3 +22,5 @@ def main():
     
     logger.info("session created")
 
+if __name__ == "__main__":
+    main()
