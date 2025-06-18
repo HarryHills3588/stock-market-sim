@@ -1,6 +1,8 @@
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import create_engine
-from models.stock_model import Base
+from infrastructure.postgres.models.stock_model import Base
+from dotenv import load_dotenv
+import os
 
 class Connection():
     def __init__(self, url:str, echo = True):
