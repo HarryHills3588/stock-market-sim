@@ -19,6 +19,7 @@ def main():
         session.add(stock)
 
     session.commit()
+    conn.shutdown()
 
 if __name__ == '__main__':
     main()
